@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1> Search </h1>
+{{ form_start(form) }}
+        {{ form_widget(form) }}
+{{ form_label(form.name, 'Your name', {
+    'label_attr': {'class': 'CUSTOM_LABEL_CLASS'}
+}) }}
+      
+    {{ form_end(form) }}
+     <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Search</button>
+            </div>
+        </div>
+
+
+
+{% endblock %}

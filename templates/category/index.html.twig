@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+  
+   
+{% block body %}
+    
+
+
+ <center> <h1  style="color: Navy">Category list</h1></center>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th  style="color: Navy">Identity</th>
+                <th  style="color: Navy">Name</th>
+                <th  style="color: Navy">Actions</th>
+            
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.name }}</td>
+               <td>
+                    <a href="{{ path('category_show', {'id': category.id}) }}">Show books</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock%}
+
+
+
+
+
+
+
+
+

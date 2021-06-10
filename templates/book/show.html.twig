@@ -1,0 +1,56 @@
+
+{% extends 'base.html.twig' %}
+  
+   
+{% block body %}
+<center><h1  style="color: Navy">Details of book : {{ books.title }}</h1></center>
+<div class="row">
+<img src="{{ asset('uploads/images/' ~ books.image) }}" height="300" width="400" style="border-radius: 15px; float:left;margin:0 10px 0 20px;">
+<div class="col-md-8">
+<table class="table table-striped">                                    
+<tr>
+  <td  style="color: Navy">Id :</td>
+  <td>{{ books.id}}</td>
+ </tr>
+<tr>
+  <td  style="color: Navy">Titre :</td>
+  <td>{{ books.title}}</td> 
+</tr>
+<tr>
+  <td  style="color: Navy">Price: </td>
+  <td>{{ books.price}}</td>
+</tr>
+<tr>
+  <td  style="color: Navy">Author : </td>
+  <td>{{ books.author}}</td>
+</tr>
+<tr>
+<td  style="color: Navy">Category:</td>
+<td>{{books.category.name}}</td>
+</tr>
+{% if(is_granted('ROLE_ADMIN'))  %}
+<tr>
+<td><a href="{{ path('book_update',{'id': books.id })}}" class="btn btn-primary">Update</a></td>
+<td style="text-align:right"><a href="{{ path('book_delete',{'id': books.id })}}" class="btn btn-primary">Delete</a></td>
+</tr>
+
+
+
+{% elseif(is_granted('ROLE_USER')) %}
+<tr>
+<td></td>
+<td style="text-align:right">
+<a href="{{ path('cart_add',{'id': books.id })}}" class="btn btn-primary">ADD TO CART</a>
+</td>
+</tr>
+
+{% else %}
+
+<td></td>
+<td style="text-align:right">
+<a href="{{ path('app_login')}}" class= "btn btn-primary">LOGIN TO PROCEEDE THE PURCHASE</a>
+</td>
+{% endif %}
+</table>
+</div></div>
+{% endblock%}

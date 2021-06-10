@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+   <center> <h1  style="color: Navy">Add new book</h1></center>
+
+{{ form_start(form) }}
+<div style="border-radius: 5px; background-color: #f2f2f2; padding: 20px; margin:0 10px 0 20px;">
+
+
+        <div>
+        <h4>{{ form_label(form.title) }} 
+        {{ form_widget(form.title) }} </h4>
+        <small>{{ form_help(form.title) }}</small>
+        <div class="form-error">{{ form_errors(form.title) }}</div>
+        </div>
+
+    <div>
+        <h4>{{ form_label(form.price) }}
+        {{ form_widget(form.price) }}</h4>
+        <small>{{ form_help(form.price) }}</small>
+        <div class="form-error">{{ form_errors(form.price) }}</div>
+    </div>
+
+    <div>
+       {{ form_errors(form.Author) }}
+       <h4>  {{ form_label(form.Author) }}
+        {{ form_widget(form.Author) }} </h4>
+        {{ form_errors(form.Author) }}
+        <small>{{ form_help(form.Author) }}</small>
+    </div>
+
+    <div>
+       <h4> {{ form_label(form.category) }}
+        {{ form_widget(form.category) }}</h4>
+        <small>{{ form_help(form.category) }}</small>
+        <div class="form-error">
+            {{ form_errors(form.category) }}
+        </div>
+
+    </div>
+
+  <div>
+       <h4> {{ form_label(form.image) }}
+        {{ form_widget(form.image) }}</h4>
+        <small>{{ form_help(form.image) }}</small>
+        <div class="form-error">
+         {{ form_errors(form.image) }}
+        </div>
+    </div>
+<button class="btn btn-lg btn-primary" type='submit' style="
+    width: 100%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;"> {{txtbtn}}</button>
+
+</div>
+{{ form_end(form) }}
+{% endblock %}

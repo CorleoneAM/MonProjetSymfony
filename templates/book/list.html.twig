@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+  
+   
+{% block body %}
+
+
+<center><h1  style="color: Navy">List of our Books</h1></center>
+<div class="container">
+
+{% for message in app.flashes('succe') %}
+<div class="alert alert-success" role="alert">
+        {{ message }}
+        </div>
+ 
+{% endfor %}
+{% for message in app.flashes('updt') %}
+<div class="alert alert-success" role="alert">
+        {{ message }}
+        </div>
+ 
+{% endfor %}
+{% for message in app.flashes('del') %}
+<div class="alert alert-success" role="alert">
+        {{ message }}
+        </div>
+ 
+{% endfor %}
+<div class="container">
+<div class="row flex">
+{% for p in books %}
+<div class="col-3">
+<div class="card">
+<div class="card-body">
+<img src="{{ asset('uploads/images/' ~ p.image) }}" height="130" width="200">
+ 
+  Title : {{ p.title}}<br>
+  Price : {{ p.price}}<br>
+  <center><a href="{{ path('book.show',{'id': p.id })}}" class="btn btn-primary"> Details</a></center>
+</div>
+</div>
+<br>
+</div>
+
+
+{% else %}   
+  <h2> la table livre est vide </h2>
+{% endfor %}
+</div>
+</div>
+  <div class="navigation text-center">
+        {{ knp_pagination_render(books) }}
+    </div>
+
+{% endblock%}
