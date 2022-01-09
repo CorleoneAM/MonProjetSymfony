@@ -32,13 +32,30 @@ class BookController extends AbstractController
     {
        $this->repo=$r; 
     }  
-      /**
+
+    /**
      * @Route("/", name="book.index")
      */
     public function index()
     {
         return $this->render('book/index.html.twig', [
             'controller_name' => 'BookController',
+        ]);
+    }
+    /**
+     * @Route("/search", name="book_search", methods={"GET"})
+     */
+    public function search(BookRepository $bookRepository, Request $request, PaginatorInterface $paginator): Response
+    {
+        $book=$bookRepository->searchByName($request->query->get('search'));
+         $books=$paginator->paginate(
+            $book,
+            $request->query->getInt('page',1),
+            8
+        );
+        return $this->render('book/list.html.twig', [
+            'books' => $books,
+            
         ]);
     }
 
@@ -58,43 +75,7 @@ class BookController extends AbstractController
             
         ]);
     }
-    /**
-     * @Route("/search/", name="book.search.first")
-     */
-    public function search(Request $request):Response
-    {
-        $search = new search();
-        $form =$this->createForm(SearchType::class, $search);
-
-        
-        $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $search =$form->getData();
-                return $this->redirectToRoute('book.search', ['name' 
-=> $search.getName()]);
-    }
-    return $this->render('search/search.html.twig', [
-        'form' => $form->createView(),
-    ]);
-    }
-     /**
-     * @Route("/search/{name}", name="book.search")
-     */
-    public function search_ok(PaginatorInterface $paginator, Request $request, $name):Response
-    {
-        
-        
-        $book=$this->getDoctrine()->getRepository(Book::class)->findbyname($name);
-        $books=$paginator->paginate(
-            $book,
-            $request->query->getInt('page',1),
-            8
-        );
-        return $this->render('book/list.html.twig', [
-            'books' => $books,
-            
-        ]);
-    }
+     
 
     /**
      * @Route("/show/{id}", name="book.show")
@@ -140,12 +121,6 @@ class BookController extends AbstractController
         
         return $this->redirectToRoute('book.list');
     }
-
-     
-
-
-
-
     /**
      * @Route("/formadd", name="book_formadd")
      */
@@ -351,6 +326,16 @@ class BookController extends AbstractController
         return $this->render('book/formadd.html.twig', [
             'form' => $form->createView(),
             'txtbtn'=>'Update Book'
+        ]);
+    }
+
+/**
+ * @Route("/pay/{total}", name="book_pay")
+ */
+    public function pay($total)
+    {
+        return $this->render('book/pay.html.twig', [
+            'total' => $total,
         ]);
     }
 

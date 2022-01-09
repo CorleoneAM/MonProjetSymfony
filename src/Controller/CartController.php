@@ -15,7 +15,7 @@ class CartController extends AbstractController
      */
     public function index(SessionInterface $session, BookRepository $bookRepository)
     {
-       $panier = $session->get('panier', []);
+        $panier = $session->get('panier', []);
        $panierWithData= [];
        foreach($panier as $id =>$quantity)
        {

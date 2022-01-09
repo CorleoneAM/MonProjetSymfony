@@ -66,5 +66,13 @@ class BookRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+    public function searchByName(string $name=null):array
+    {
+        $qb = $this->createQueryBuilder('p');
+        $qb 
+            ->where('p.title LIKE :title') // on utilise LIKE (e pas =)pour qu'on peut ajouter '%' au Value 
+            ->setParameter('title',"%$name%");
+        return $qb->getQuery()->getResult();
+    }
     
 }
